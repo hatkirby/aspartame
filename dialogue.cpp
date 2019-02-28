@@ -81,32 +81,47 @@ int main(int, char**)
 
   for (;;)
   {
+    std::set<speaker_id> pastSpeakers;
+
+
     speaker_id curSpeaker = allSpeakers.next();
 
     std::ostringstream theEnd;
+    int maxLines = rand() % 4 + 3;
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < maxLines; i++)
     {
-      speaker_data& curSd = speakerData.at(curSpeaker);
+      pastSpeakers.insert(curSpeaker);
 
-      //std::ostringstream thisLine;
+      speaker_data& curSd = speakerData.at(curSpeaker);
 
       if (curSd.name != "")
       {
         theEnd << curSd.name << ": ";
       }
 
-      theEnd << curSd.chain.randomSentence(1);
+      std::string curLine = curSd.chain.randomSentence(rand() % 30 + 1);
 
-      /*if (i > 0 && theEnd.str().length() + thisLine.str().length() > 280)
+      if (curSd.name == "" &&
+          curLine[0] != '[' &&
+          curLine[0] != '(' &&
+          curLine[0] != '*')
       {
-        break;
-      }*/
+        theEnd << "[" << curLine << "]";
+      } else {
+        theEnd << curLine;
+      }
 
       theEnd << std::endl;
-      //theEnd << thisLine.str();
 
-      curSpeaker = curSd.nextSpeaker.next();
+      speaker_id repeatSpeaker = *std::next(std::begin(pastSpeakers), rand() % pastSpeakers.size());
+      if (repeatSpeaker != curSpeaker &&
+          rand() % 3 == 0)
+      {
+        curSpeaker = repeatSpeaker;
+      } else {
+        curSpeaker = curSd.nextSpeaker.next();
+      }
     }
 
     std::string output = theEnd.str();

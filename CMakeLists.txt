@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.1)
 project (rawr-ebooks)
 
-add_subdirectory(vendor/rawr-ebooks)
+add_subdirectory(vendor/rawr-ebooks EXCLUDE_FROM_ALL)
 
 include_directories(vendor/rawr-ebooks)
 
