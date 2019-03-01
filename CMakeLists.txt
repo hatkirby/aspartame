@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.1)
-project (rawr-ebooks)
+project (aspartame)
 
 find_package(PkgConfig)
 pkg_check_modules(yaml-cpp yaml-cpp REQUIRED)
@@ -11,7 +11,7 @@ include_directories(
   vendor/rawr-ebooks/vendor/libtwittercpp/src
   ${yaml-cpp_INCLUDE_DIRS})
 
-add_executable(garnet dialogue.cpp)
-set_property(TARGET garnet PROPERTY CXX_STANDARD 17)
-set_property(TARGET garnet PROPERTY CXX_STANDARD_REQUIRED ON)
-target_link_libraries(garnet rawr twitter++ ${yaml-cpp_LIBRARIES})
+add_executable(aspartame dialogue.cpp)
+set_property(TARGET aspartame PROPERTY CXX_STANDARD 17)
+set_property(TARGET aspartame PROPERTY CXX_STANDARD_REQUIRED ON)
+target_link_libraries(aspartame rawr twitter++ ${yaml-cpp_LIBRARIES})
