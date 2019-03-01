@@ -20,6 +20,7 @@ struct speaker_data {
   std::string name;
   histogram<speaker_id> nextSpeaker;
   rawr chain;
+  size_t count = 0;
 
 };
 
@@ -49,6 +50,7 @@ int main(int, char**)
     speaker_id spId = speakers.add(speaker);
     speaker_data& myData = speakerData[spId];
     myData.name = speaker;
+    myData.count++;
 
     allSpeakers.add(spId);
 
@@ -73,7 +75,7 @@ int main(int, char**)
   std::cout << "Speakers:" << std::endl;
   for (auto& sp : speakerData)
   {
-    std::cout << "  " << sp.second.name << std::endl;
+    std::cout << "  " << sp.second.name << ": " << sp.second.count << std::endl;
   }
   std::cout << std::endl;
 
